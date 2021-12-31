@@ -8,7 +8,7 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "watch": "concurrently \"npm run watch-ts\" \"npm run watch-node\"",
         "watch-node": "nodemon --trace-warnings dist/server.js",
-        "watch-ts": "tsc src/server.ts --watch",
+        "watch-ts": "tsc --watch",
         "lint": "eslint .",
         "format": "prettier --write \"**/*.+(js|ts|json|md)\""
     },

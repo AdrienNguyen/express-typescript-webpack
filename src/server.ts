@@ -1,4 +1,4 @@
-import * as express from 'express'
+import express from 'express'
 
 import { NODE_ENV, PORT } from './config/secrets'
 import ServerHandler from './handlers/server-handler'
