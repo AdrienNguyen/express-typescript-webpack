@@ -1,21 +1,21 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es5",
+        "target": "esnext",
         "moduleResolution": "node",
         "sourceMap": false,
         "outDir": "dist",
-        "baseUrl": "./src",
+        "baseUrl": ".",
         "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,
         "noImplicitAny": false,
+        "lib": ["esnext"],
+        "skipLibCheck": true,
+        "typeRoots": ["src/config/types", "node_modules/@types"],
         "paths": {
             "*": ["node_modules/*", "src/types/*"]
-        },
-        "lib": ["es5"],
-        "skipLibCheck": true
+        }
     },
     "include": ["src/**/*"],
-    "exclude": ["node_modules"],
-    "typeRoots": ["./src/types"]
+    "exclude": ["node_modules"]
 }

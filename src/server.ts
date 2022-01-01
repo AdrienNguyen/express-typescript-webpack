@@ -5,13 +5,6 @@ import ServerHandler from './handlers/server-handler'
 class ExpressServer {
     app = express()
 
-    constructor() {
-        this.runApp().catch((err) => {
-            console.trace('App shutdown due to a problem', err.message)
-            process.exit(1)
-        })
-    }
-
     async runApp() {
         this.app.listen(PORT || 8080, () => {
             console.info(
@@ -26,4 +19,9 @@ class ExpressServer {
     }
 }
 
-new ExpressServer()
+const expressServer = new ExpressServer()
+
+expressServer.runApp().catch((err) => {
+    console.trace('App shutdown due to a problem', err.message)
+    process.exit(1)
+})
