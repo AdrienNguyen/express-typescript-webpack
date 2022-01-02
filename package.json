@@ -7,6 +7,7 @@
         "postinstall": "rm -rf .husky && husky install && npx husky add .husky/pre-commit \"npx lint-staged\"",
         "test": "echo \"Error: no test specified\" && exit 1",
         "watch": "concurrently \"npm run watch-ts\" \"npm run watch-node\"",
+        "build": "webpack && node build/main.js",
         "watch-node": "nodemon --trace-warnings dist/server.js",
         "watch-ts": "tsc --watch",
         "lint": "eslint .",
@@ -37,6 +38,7 @@
         "@types/express": "^4.17.13",
         "@types/node": "^17.0.2",
         "@typescript-eslint/eslint-plugin": "^5.8.0",
+        "babel-loader": "^8.2.3",
         "concurrently": "^6.5.1",
         "dotenv": "^10.0.0",
         "eslint": "^8.5.0",
@@ -45,7 +47,11 @@
         "nodemon": "^2.0.15",
         "pre-commit": "^1.2.2",
         "prettier": "^2.5.1",
+        "terser-webpack-plugin": "^5.3.0",
+        "ts-loader": "^9.2.6",
         "ts-node": "^10.4.0",
-        "typescript": "^4.5.4"
+        "typescript": "^4.5.4",
+        "webpack": "^5.65.0",
+        "webpack-cli": "^4.9.1"
     }
 }
