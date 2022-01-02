@@ -11,4 +11,13 @@ if (fs.existsSync('.env')) {
     })
 }
 
-export const { NODE_ENV, PORT } = process.env
+export const {
+    NODE_ENV,
+    PORT,
+    DB_AUTHENTICATE,
+    DB_HOST,
+    DB_PORT,
+    DB_NAME,
+    DB_USERNAME,
+    DB_PASSWORD,
+} = process.env
