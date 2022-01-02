@@ -1,4 +1,5 @@
 import express from 'express'
+import bodyParser from 'body-parser'
 
 import { NODE_ENV, PORT } from './config/secrets'
 import MongoDbConnection from './connection'
@@ -17,8 +18,13 @@ class ExpressServer {
             console.info('Press CTRL-C to stop')
         })
 
-        new ServerHandler(this.app)
+        this.initMiddleware()
         this.initDatebase()
+        new ServerHandler(this.app)
+    }
+
+    initMiddleware() {
+        this.app.use(bodyParser.json())
     }
 
     initDatebase() {
