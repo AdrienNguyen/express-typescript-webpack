@@ -3,7 +3,7 @@ import bodyParser from 'body-parser'
 
 import { NODE_ENV, PORT } from './config/secrets'
 import MongoDbConnection from './connection'
-import ServerHandler from './handlers/server-handler'
+import authRouter from './modules/auth/auth.route'
 class ExpressServer {
     app = express()
     mongodbConnection: MongoDbConnection
@@ -18,18 +18,25 @@ class ExpressServer {
             console.info('Press CTRL-C to stop')
         })
 
-        this.initMiddleware()
         this.initDatebase()
-        new ServerHandler(this.app)
+        this.initMiddleware()
+        this.initRouter()
+    }
+
+    initDatebase() {
+        this.mongodbConnection = new MongoDbConnection()
+        this.mongodbConnection.connect()
     }
 
     initMiddleware() {
         this.app.use(bodyParser.json())
     }
 
-    initDatebase() {
-        this.mongodbConnection = new MongoDbConnection()
-        this.mongodbConnection.connect()
+    initRouter() {
+        this.app.use('/api/user', authRouter)
+        this.app.use('/', (req, res) => {
+            res.send('<h1>Welcome to express server with typescript</h1>')
+        })
     }
 }
 
