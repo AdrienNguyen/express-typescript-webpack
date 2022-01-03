@@ -1,2 +1,3 @@
 import User from './user.model'
-export { User }
+import HttpError from './http-error.model'
+export { User, HttpError }

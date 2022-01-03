@@ -8,13 +8,13 @@ import {
     DB_PASSWORD,
 } from '../config/secrets'
 
-export default class MongoDbConnection {
+export default class MongoDb implements Connection {
     uri: string
-    optionConnectDb: object
+    connectOptions: object
 
     constructor() {
         this.uri = `mongodb://${DB_HOST}:${DB_PORT || '27017'}/${DB_NAME}`
-        this.optionConnectDb =
+        this.connectOptions =
             DB_AUTHENTICATE === 'true'
                 ? {
                       useNewUrlParser: true,
@@ -30,7 +30,7 @@ export default class MongoDbConnection {
 
     async connect() {
         mongoose
-            .connect(this.uri, this.optionConnectDb)
+            .connect(this.uri, this.connectOptions)
             .then(() => {
                 console.log('Connect Database MongoDb successfully')
             })

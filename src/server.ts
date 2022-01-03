@@ -1,12 +1,15 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import express from 'express'
 import bodyParser from 'body-parser'
+import fs from 'fs'
 
 import { NODE_ENV, PORT } from './config/secrets'
-import MongoDbConnection from './connection'
+import ConnectionFactory from './connection/connection-factory'
 import authRouter from './modules/auth/auth.route'
+import { HttpError } from './models'
 class ExpressServer {
     app = express()
-    mongodbConnection: MongoDbConnection
 
     async runApp() {
         this.app.listen(PORT || 8080, () => {
@@ -21,21 +24,59 @@ class ExpressServer {
         this.initDatebase()
         this.initMiddleware()
         this.initRouter()
+        this.handleError()
     }
 
     initDatebase() {
-        this.mongodbConnection = new MongoDbConnection()
-        this.mongodbConnection.connect()
+        const connection: Connection = ConnectionFactory.getConnection(
+            DBType.MongoDb,
+        )
+        connection.connect()
     }
 
     initMiddleware() {
+        // handle body parser
         this.app.use(bodyParser.json())
+        // handle cors error
+        this.app.use((req, res, next) => {
+            res.setHeader('Access-Control-Allow-Origin', '*')
+            res.setHeader(
+                'Access-Control-Allow-Headers',
+                'Origin, X-Requested-With, Content-Type, Accept, Authorization',
+            )
+            res.setHeader(
+                'Access-Control-Allow-Methods',
+                'GET, POST, PATCH, DELETE',
+            )
+            next()
+        })
     }
 
     initRouter() {
         this.app.use('/api/user', authRouter)
-        this.app.use('/', (req, res) => {
+        this.app.get('/', (req, res) => {
             res.send('<h1>Welcome to express server with typescript</h1>')
+        })
+    }
+
+    handleError() {
+        // handle route not found
+        this.app.use((req, res, next) => {
+            throw new HttpError('Could not find this route', 404)
+        })
+        // handle error
+        this.app.use((error, req, res, next) => {
+            if (req.file) {
+                fs.unlink(req.file.path, (err) => {
+                    console.log(err)
+                })
+            }
+            if (res.headerSent) {
+                return next(error)
+            }
+
+            res.status(error.code || 500)
+            res.json({ message: error.message || 'An unknow error occurred!' })
         })
     }
 }
