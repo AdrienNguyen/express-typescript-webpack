@@ -19,7 +19,7 @@ module.exports = {
         'array-bracket-spacing': ['warn'],
         'object-curly-spacing': ['warn', 'always'],
         // the variable is not reassigned. Change let to const
-        'prefer-const': 'warn',
+        'prefer-const': 'off',
         'no-console': 'off',
         'no-useless-escape': 'off',
         // I dont know. I use any :)
