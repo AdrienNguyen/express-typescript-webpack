@@ -6,13 +6,31 @@ const register = async (req, res) => {
 
         res.status(201).json({
             success: true,
-            messages: ['REGISTER_SUCCESSFULLY'],
+            message: 'REGISTER_SUCCESSFULLY',
             content: user,
         })
     } catch (error) {
-        res.status(400).json({
+        res.status(error.code || 400).json({
             success: false,
-            messages: ['REGISTER_FAILED'],
+            message: 'REGISTER_FAILED',
+            content: error.message,
+        })
+    }
+}
+
+const login = async (req, res) => {
+    try {
+        const user = await authService.login(req.body)
+
+        res.status(200).json({
+            success: true,
+            message: 'LOGIN_SUCCESSFULLY',
+            content: user,
+        })
+    } catch (error) {
+        res.status(error.code || 400).json({
+            success: false,
+            message: 'LOGIN_FAILED',
             content: error.message,
         })
     }
@@ -20,4 +38,5 @@ const register = async (req, res) => {
 
 export default {
     register,
+    login,
 }

@@ -1,7 +1,22 @@
 import express from 'express'
-const authRouter = express.Router()
+import { check } from 'express-validator'
+
+import validateInput from '../../middleware/validate-input'
 import authController from './auth.controller'
 
-authRouter.post('/register', authController.register)
+const router = express.Router()
 
-export default authRouter
+router.post(
+    '/register',
+    [
+        check('name').not().isEmpty(),
+        check('email').isEmail(),
+        check('password').isLength({ min: 6 }),
+    ],
+    validateInput('REGISTER_FAILED'),
+    authController.register,
+)
+
+router.post('/login', authController.login)
+
+export default router

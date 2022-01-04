@@ -75,8 +75,11 @@ class ExpressServer {
                 return next(error)
             }
 
-            res.status(error.code || 500)
-            res.json({ message: error.message || 'An unknow error occurred!' })
+            res.status(error.code || 500).json({
+                success: false,
+                message: res.message || '',
+                content: error.message || 'An unknow error occurred!',
+            })
         })
     }
 }
