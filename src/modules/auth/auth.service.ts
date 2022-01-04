@@ -16,7 +16,7 @@ export const register = async (data) => {
 
     const hashedPassword = await bcrypt.hash(password, 12)
 
-    const user = await User.create({
+    const newUser = await User.create({
         email: email,
         password: hashedPassword,
         name: name,
@@ -24,8 +24,8 @@ export const register = async (data) => {
 
     const token = jwt.sign(
         {
-            userId: user.id,
-            email: user.email,
+            userId: newUser.id,
+            email: newUser.email,
         },
         JWT_KEY,
         {
@@ -35,8 +35,8 @@ export const register = async (data) => {
 
     return {
         user: {
-            userId: user.id,
-            email: user.email,
+            userId: newUser.id,
+            email: newUser.email,
             token: token,
         },
     }
@@ -52,8 +52,6 @@ const login = async (data) => {
     if (!existingUser) {
         throw new HttpError('Invalid credentials, could not log you in.', 403)
     }
-
-    console.log('AA')
 
     const isValidPassword = await bcrypt.compare(
         password,

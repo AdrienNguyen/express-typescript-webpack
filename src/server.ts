@@ -7,6 +7,7 @@ import fs from 'fs'
 import { NODE_ENV, PORT } from './config/secrets'
 import ConnectionFactory from './connection/connection-factory'
 import authRouter from './modules/auth/auth.route'
+import productRouter from './modules/production/product/product.route'
 import { HttpError } from './models'
 class ExpressServer {
     app = express()
@@ -54,6 +55,7 @@ class ExpressServer {
 
     initRouter() {
         this.app.use('/api/user', authRouter)
+        this.app.use('/api/product', productRouter)
         this.app.get('/', (req, res) => {
             res.send('<h1>Welcome to express server with typescript</h1>')
         })
