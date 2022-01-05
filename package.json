@@ -9,7 +9,7 @@
         "dev": "concurrently \"npm run watch-ts\" \"npm run watch-node\"",
         "watch-node": "nodemon --trace-warnings dist/server.js",
         "watch-ts": "tsc --watch",
-        "build": "webpack && node build/main.js",
+        "build": "webpack && node build/server.js",
         "start-pm2": "pm2 start ./pm2/prod.json",
         "lint": "eslint .",
         "format": "prettier --write \"**/*.+(js|ts|json|md)\""
@@ -40,7 +40,8 @@
         "express-validator": "^6.14.0",
         "jsonwebtoken": "^8.5.1",
         "mongoose": "^6.1.4",
-        "mongoose-paginate-v2": "^1.4.2"
+        "mongoose-paginate-v2": "^1.4.2",
+        "winston": "^3.3.3"
     },
     "devDependencies": {
         "@types/express": "^4.17.13",

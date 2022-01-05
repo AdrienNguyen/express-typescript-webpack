@@ -1,8 +1,11 @@
+import { LogInfo, LogError } from '../../../helpers/logs'
 import productService from './product.service'
 
 const createProduct = async (req, res) => {
     try {
         const product = await productService.createProduct(req.body)
+
+        req.user && (await LogInfo(req.user.email, 'CREATE_PRODUCT'))
 
         res.status(201).json({
             success: true,
@@ -10,6 +13,8 @@ const createProduct = async (req, res) => {
             content: product,
         })
     } catch (error) {
+        req.user && (await LogError(req.user.email, 'CREATE_PRODUCT'))
+
         res.status(error.code || 400).json({
             success: false,
             message: 'CREATE_PRODUCT_FAILED',

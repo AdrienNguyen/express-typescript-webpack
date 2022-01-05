@@ -12,4 +12,5 @@ module.exports = {
     appServerTs: resolveApp('src/server.ts'),
     apPackageJson: resolveApp('package.json'),
     appNodemodule: resolveApp('node_modules'),
+    appLog: resolveApp('logs'),
 }

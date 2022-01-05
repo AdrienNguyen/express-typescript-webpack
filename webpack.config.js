@@ -18,7 +18,7 @@ fs.readdirSync(appNodemodule)
 
 module.exports = {
     mode: 'production',
-    entry: appServerTs,
+    entry: { server: appServerTs },
     target: 'node',
     externals: nodeModules,
     module: {
@@ -111,7 +111,7 @@ module.exports = {
                     // keep_classnames: isEnvProductionProfile,
                     // keep_fnames: isEnvProductionProfile,
                     output: {
-                        comments: false,
+                        comments: true,
                         ecma: 5,
                         // Turned on because emoji and regex is not minified properly using default
                         // https://github.com/facebook/create-react-app/issues/2488

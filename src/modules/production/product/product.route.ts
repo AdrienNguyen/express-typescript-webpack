@@ -14,7 +14,7 @@ router.use(checkAuth)
 router.post(
     '/',
     [check('name').isLength({ min: 6, max: 100 }), check('price').isNumeric()],
-    validateInput('CREATE_PRODUCT_FAILED'),
+    validateInput('CREATE_PRODUCT'),
     productController.createProduct,
 )
 
