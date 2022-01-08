@@ -26,6 +26,8 @@ Edit .env file:
 -   DB_USERNAME= (database username)
 -   DB_PASSWORD= (database password)
 -   JWT_KEY=secret_key_not_share (secret key for authenticating user)
+-   EMAIL_ACCOUNT= (your google account to send the mail - send email using [nodemailer](https://nodemailer.com/about/))
+-   EMAIL_PASSWORD= (password of account)
 
 ## Set up dev environment
 
