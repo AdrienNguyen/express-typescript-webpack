@@ -21,4 +21,6 @@ export const {
     DB_USERNAME,
     DB_PASSWORD,
     JWT_KEY,
+    EMAIL_ACCOUNT,
+    EMAIL_PASSWORD,
 } = process.env

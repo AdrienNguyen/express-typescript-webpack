@@ -2,6 +2,7 @@ import { User, HttpError } from '../../models'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import { JWT_KEY } from '../../config/secrets'
+import { sendEmailForCreatedAccount } from '../../helpers/emails'
 
 export const register = async (data) => {
     const { name, email, password } = data
@@ -72,6 +73,8 @@ const login = async (data) => {
             expiresIn: '1h',
         },
     )
+
+    await sendEmailForCreatedAccount(email)
 
     return {
         user: {
