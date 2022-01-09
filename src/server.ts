@@ -9,6 +9,8 @@ import ConnectionFactory from './connection/connection-factory'
 import authRouter from './modules/auth/auth.route'
 import productRouter from './modules/production/product/product.route'
 import { HttpError } from './models'
+import { backupDB } from './helpers/backup-db'
+import ScheduleJob from './helpers/schedule-job'
 class ExpressServer {
     app = express()
 
@@ -23,6 +25,7 @@ class ExpressServer {
         })
 
         this.initDatebase()
+        this.initBackupDatabase()
         this.initMiddleware()
         this.initRouter()
         this.handleError()
@@ -33,6 +36,17 @@ class ExpressServer {
             DBType.MongoDb,
         )
         connection.connect()
+    }
+
+    initBackupDatabase() {
+        const timeRule = {
+            hour: 21,
+            minute: 5,
+            dayOfWeek: 0,
+        }
+        const action = backupDB
+        const backupSchedule = new ScheduleJob(timeRule, action)
+        backupSchedule.start()
     }
 
     initMiddleware() {

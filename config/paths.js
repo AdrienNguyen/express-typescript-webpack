@@ -13,4 +13,5 @@ module.exports = {
     apPackageJson: resolveApp('package.json'),
     appNodemodule: resolveApp('node_modules'),
     appLog: resolveApp('logs'),
+    appBackup: resolveApp('backups'),
 }

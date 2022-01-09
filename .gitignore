@@ -107,3 +107,6 @@ dist
 .husky
 
 build
+
+# Backup database folder
+backups
