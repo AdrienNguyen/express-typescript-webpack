@@ -1,4 +1,5 @@
 import schedule from 'node-schedule'
+import { uuid } from './uuid'
 
 export default class ScheduleJob {
     id: string
@@ -6,7 +7,7 @@ export default class ScheduleJob {
     action: any
 
     constructor(ruleTime: object, action: any) {
-        this.id = 'test-job'
+        this.id = uuid()
         this.ruleTime = ruleTime
         this.action = action
     }
